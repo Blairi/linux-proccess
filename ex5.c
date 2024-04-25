@@ -9,21 +9,23 @@ Si no se pudo clonar el proceso, mandar un mensaje a pantalla y terminar el prog
 #include <sys/types.h>
 
 int main() {
-    
-    switch ( fork() )
+    int pid;
+    switch ( pid = fork() )
     {
         case -1:
             printf("Error al crear el proceso\n");
             exit(0);
         break;
-    
+
+        // codigo para el hijo
         case 0:
             printf("Soy el proceso hijo [%d] y mi padre es [%d]\n", getpid(), getppid());
             exit(0);
         break;
 
+        // codigo para el padre
         default:
-            printf("Soy el proceso padre [%d] y mi hijo es [%d]\n", getppid(), getpid());
+            printf("Soy el proceso padre [%d] y mi hijo es [%d]\n", getpid(), pid);
             exit(0);
         break;
     }
